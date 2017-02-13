@@ -1,0 +1,80 @@
+.fly() {
+    perspective: 4000px;
+    background: transparent;
+    position: absolute;
+    left: 0px;
+    .stage {
+        transform-style: preserve-3d;
+        transform: matrix3d(
+            1, 0, 0, 0,
+            0, 0.2, 4, 0,
+            0, -4, 0.2, 0,
+            0, 0, 0, 1
+        );
+        transform-origin: left top;
+        background: transparent;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        .plane {
+            transform-origin: left top;
+            background: transparent;
+            animation: 10s linear infinite fly;
+            perspective: 400px;
+            position: absolute;
+            width: 0px;
+            height: 0px;
+            left: 40%;
+            top: 50%;
+            background: transparent;
+            border-top: 150px solid transparent;
+            border-left: 10px solid transparent;
+            border-right: 40px solid transparent;
+            border-bottom: 10px solid #FFBCDA;
+            z-index: 2;
+            &:before{
+                content: '';
+                position: absolute;
+                top: -21px;
+                left: -10px;
+                width: 0px;
+                height: 0px;
+                transform-style: preserve-3d;
+                transform: rotateX(90deg);
+                z-index: 1;
+                border-bottom: 10px solid transparent;
+                border-left: 10px solid transparent;
+                border-right: 40px solid transparent;
+                border-top: 70px solid #CB22D7;
+            }
+            &:after {
+                z-index: 2;
+                content: '';
+                position: absolute;
+                top: 10px;
+                left: -10px;
+                width: 0px;
+                height: 0px;
+                border-top: 10px solid #FFD7E9;
+                border-left: 10px solid transparent;
+                border-right: 40px solid transparent;
+                border-bottom: 10px solid transparent;
+            }
+        }
+    }
+}
+
+@keyframes fly {
+    25% {
+        transform: rotateZ(-90deg);
+    }
+    50% {
+        transform: rotateZ(-180deg);
+    }
+    75% {
+        transform: rotateZ(-270deg);
+    }
+    100% {
+        transform: rotateZ(-360deg);
+    }
+}

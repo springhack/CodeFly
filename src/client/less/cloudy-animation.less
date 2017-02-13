@@ -1,0 +1,59 @@
+.cloudy-animation(@BgColor: #FFFFFF) {
+    position: relative;
+    animation: 20s linear infinite cloudy;
+    .cloud() {
+        background: @BgColor;
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+        box-shadow:
+            65px -15px 0 @BgColor,
+            25px -25px 0 @BgColor,
+            30px 10px 0 @BgColor,
+            60px 15px 0 @BgColor,
+            85px 5px 0 @BgColor;
+    }
+    & > div {
+        transition: 5s;
+        .cloud();
+        &:nth-child(1) {
+            transform: matrix(0.5, 0, 0, 0.5, 0, 10);
+        }
+        &:nth-child(2) {
+            transform: matrix(0.9, -0.1, 0.1, 0.9, 130, 50);
+        }
+        &:nth-child(3) {
+            transform: matrix(0.7, 0, 0, 0.7, 260, 15);
+        }
+    }
+}
+
+@keyframes cloudy {
+    0% {
+        opacity: 0.5;
+        transform: translateX(-100px);
+    }
+    5% {
+        transform: translateX(-95px);
+    }
+    25% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+    50% {
+        opacity: 0.5;
+        transform: translateX(100px);
+    }
+    75% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+    95% {
+        transform: translateX(-95px);
+    }
+    100% {
+        opacity: 0.5;
+        transform: translateX(-100px);
+    }
+}

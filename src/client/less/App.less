@@ -1,0 +1,68 @@
+@import './sunny-animation.less';
+@import './cloudy-animation.less';
+@import './fly-animation.less';
+@import './ocean-animation.less';
+@import (less) '../../../node_modules/codemirror/lib/codemirror.css';
+@import (less) '../../../node_modules/codemirror/theme/solarized.css';
+@import (less) '../../../node_modules/muicss/dist/css/mui.min.css';
+
+body, img, div, section {
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+
+#app {
+    color: #369;
+    .Main {
+        display: flex;
+        padding: 0px;
+        position: relative;
+        .stage {
+            width: 400px;
+            height: 500px;
+            overflow: hidden;
+            background: #E0FCFF;
+            position: relative;
+            .sun {
+                top: 10px;
+                left: 10px;
+                .sunny-animation(#FFEAB6);
+            }
+            .cloud {
+                .cloudy-animation();
+            }
+            .ocean {
+                .ocean();
+            }
+            .fly {
+                top: 300px;
+                .fly();
+            }
+        }
+        .MainContainer {
+            position: absolute;
+            margin-left: 400px;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            height: 500px;
+            .CodeMirror {
+                font-size: 12px;
+                height: 464px;
+            }
+            .Toolbar {
+                height: 36px;
+                .mui-btn {
+                    margin: 0px;
+                    float: right;
+                }
+            }
+        }
+    }
+    .footer {
+        text-align: center;
+    }
+}
+

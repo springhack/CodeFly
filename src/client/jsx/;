@@ -1,0 +1,45 @@
+/**
+        Author: SpringHack - springhack@live.cn
+        Last modified: 2017-02-14 01:28:43
+        Filename: src/client/jsx/CodeEditor.js
+        Description: Created by SpringHack using vim automatically.
+**/
+import React from 'react';
+import CodeMirror from 'react-codemirror';
+import 'codemirror/mode/clike/clike.js';
+import {
+    Button, Dropdown, DropdownItem
+} from 'muicss/react';
+
+import Config from '../config/Config.js';
+import Model from '../model/Model.js';
+
+import {autorun} from 'mobx';
+
+autorun(() => {
+    console.log('Code:', Model.state.code);
+    console.log('Time:', Model.state.time);
+    console.log('Lang:', Model.state.lang);
+    console.log('Memory:', Model.state.memory);
+});
+
+export default (props) => {
+    let {value, onChange} = props;
+    return (
+        <section className='MainContainer'>
+            <CodeMirror className='CodeMirror' value={Model.state.code} onChange={code => Model.setState({code : code})} options={Config.CodeMirrorConfig} preserveScrollPosition />
+                <div className='Toolbar'>
+                <Dropdown label='Time Limit'>
+                    {[...Array(5)].map((e, i) => <DropdownItem onClick={() => Model.setState({time : (i + 1) * 2000})} key={i}>{(i + 1) * 2000 + 'MS'}</DropdownItem>)}
+                </Dropdown>
+                <Dropdown label='Memory Limit' value={128}>
+                    {[...Array(5)].map((e, i) => <DropdownItem onClick={() => Model.setState({memory : 2 ** (i + 3)})} key={i}>{2 ** (i + 3) + 'MB'}</DropdownItem>)}
+                </Dropdown>
+                <Dropdown label='Language'>
+                    {['G++', 'GCC', 'Java'].map((e, i) => <DropdownItem>{'G++'}</DropdownItem>)}
+                </Dropdown>
+                <Button color='accent'>Run</Button>
+            </div>
+        </section>
+    );
+};
