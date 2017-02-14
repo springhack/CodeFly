@@ -1,6 +1,6 @@
 /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2017-02-14 02:15:37
+        Last modified: 2017-02-14 14:20:46
         Filename: src/client/jsx/CodeEditor.js
         Description: Created by SpringHack using vim automatically.
 **/
@@ -19,7 +19,7 @@ export default observer((props) => {
     let {value, onChange} = props;
     return (
         <section className='MainContainer'>
-            <CodeMirror className='CodeMirror' value={Model.state.code} onChange={code => Model.setState({code : code})} options={Config.CodeMirrorConfig} preserveScrollPosition />
+            <CodeMirror className='CodeMirror' value={Model.state.code} onChange={code => Model.setState({code : code, share : false})} options={Config.CodeMirrorConfig} preserveScrollPosition />
             <div className='Toolbar'>
                 <Dropdown label={`Lang: ${Model.state.lang}`}>
                     {['G++', 'GCC', 'Java'].map((e, i) => <DropdownItem key={i} onClick={() => Model.setState({lang : e})}>{e}</DropdownItem>)}
@@ -30,8 +30,8 @@ export default observer((props) => {
                 <Dropdown label={`Memory: ${Model.state.memory}MB`}>
                     {[...Array(5)].map((e, i) => <DropdownItem onClick={() => Model.setState({memory : 2 ** (i + 3)})} key={i}>{2 ** (i + 3) + 'MB'}</DropdownItem>)}
                 </Dropdown>
-                <Button color='accent'>Save</Button>
-                <Button color='primary'>Run</Button>
+                <Button color='primary' onClick={() => Model.setState({showIO : true, showIOTimeout : true})}>OK</Button>
+                <Button onClick={() => Model.resetState()}>RESET</Button>
             </div>
         </section>
     );

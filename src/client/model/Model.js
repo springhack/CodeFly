@@ -1,7 +1,7 @@
 /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2017-02-14 02:25:13
-        Filename: src/client/model/Model.js
+        Last modified: 2017-02-14 13:57:28
+        Filename: Model.js
         Description: Created by SpringHack using vim automatically.
 **/
 import {useStrict, action, observable} from 'mobx'
@@ -19,13 +19,40 @@ class Model {
 
     @observable
     state = {
+        recordID : '',
         code : window.localStorage && window.localStorage.getItem('code') || '',
         input : window.localStorage && window.localStorage.getItem('input') || '',
         output : window.localStorage && window.localStorage.getItem('output') || '',
+        share : false,
+        showIO : false,
+        loading : false,
+        showIOTimeout : false,
         time : 2000,
         lang : 'G++',
         memory : 128
     };
+
+    constructor() {
+        //DEBUG Only !!!
+        if (process.env.NODE_ENV != 'production') window.MobX_Model = this;
+    }
+
+    @action
+    resetState() {
+        this.setState({
+            recordID : '',
+            code : '',
+            input : '',
+            output : '',
+            share : false,
+            showIO : false,
+            loading : false,
+            showIOTimeout : false,
+            time : 2000,
+            lang : 'G++',
+            memory : 128
+        });
+    }
 
     @action
     setState(o) {

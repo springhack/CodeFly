@@ -1,17 +1,27 @@
+//Self define style
 @import './sunny-animation.less';
 @import './cloudy-animation.less';
 @import './fly-animation.less';
 @import './ocean-animation.less';
+@import './MainContainer.less';
+@import './IO.less';
+@import './Loading.less';
+
+//CodeMirror style
 @import (less) '../../../node_modules/codemirror/lib/codemirror.css';
 @import (less) '../../../node_modules/codemirror/theme/solarized.css';
+
+//MUICSS style
 @import (less) '../../../node_modules/muicss/dist/css/mui.min.css';
 
+//Default block style
 body, img, div, section {
     border: 0px;
     padding: 0px;
     margin: 0px;
 }
 
+//App here
 #app {
     color: #369;
     .Main {
@@ -41,24 +51,10 @@ body, img, div, section {
             }
         }
         .MainContainer {
-            position: absolute;
-            margin-left: 400px;
-            top: 0px;
-            left: 0px;
-            right: 0px;
-            bottom: 0px;
-            height: 500px;
-            .CodeMirror {
-                font-size: 12px;
-                height: 464px;
-            }
-            .Toolbar {
-                height: 36px;
-                .mui-btn {
-                    margin: 0px;
-                    float: right;
-                }
-            }
+            .MainContainer();
+        }
+        .IO {
+            .IO();
         }
     }
     .footer {

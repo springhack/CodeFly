@@ -1,6 +1,6 @@
 /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2017-02-14 01:29:10
+        Last modified: 2017-02-14 12:53:49
         Filename: App.js
         Description: Created by SpringHack using vim automatically.
 **/
@@ -9,7 +9,9 @@ import {observer} from 'mobx-react';
 import {
     Container, Panel
 } from 'muicss/react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
+import IO from './IO.js';
 import Model from '../model/Model.js';
 import Animation from './Animation.js';
 import CodeEditor from './CodeEditor.js';
@@ -28,6 +30,16 @@ export default @observer class extends React.Component {
                 <Panel className='Main'>
                     <Animation />
                     <CodeEditor />
+                    <ReactCSSTransitionGroup
+                        style={{
+                            zIndex : (Model.state.showIOTimeout?13:-13)
+                        }}
+                        className='IOTransition'
+                        transitionName='IOWindow'
+                        transitionEnterTimeout={300}
+                        transitionLeaveTimeout={150}>
+                        {Model.state.showIO && <IO />}
+                    </ReactCSSTransitionGroup>
                 </Panel>
                 <Panel className='footer'>
                     Created by SpringHack
