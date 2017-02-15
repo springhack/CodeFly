@@ -1,6 +1,7 @@
 node_modules
 daemon/bin
-daemon/src/runner
+daemon/src/c/runner
 daemon/socket
 daemon/runtime
 npm-debug.log
+*.pyc
