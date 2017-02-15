@@ -1,10 +1,11 @@
 /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2017-02-14 02:10:26
+        Last modified: 2017-02-15 20:17:17
         Filename: src/client/main.js
         Description: Created by SpringHack using vim automatically.
 **/
 import 'babel-polyfill';
+import 'whatwg-fetch';
 
 import React from 'react';
 import ReactDOM from 'react-dom';

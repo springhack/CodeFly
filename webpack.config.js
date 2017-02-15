@@ -1,6 +1,6 @@
 /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2017-02-13 00:26:24
+        Last modified: 2017-02-15 20:40:24
         Filename: webpack.config.js
         Description: Created by SpringHack using vim automatically.
 **/
@@ -90,6 +90,11 @@ module.exports = {
     hot: true,
     inline: true,
     contentBase: path.resolve(__dirname, 'dist'),
-    port: 9090
+    port: 9090,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000'
+      }
+    }
   }
 };

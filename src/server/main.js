@@ -5,15 +5,23 @@
         Description: Created by SpringHack using vim automatically.
 **/
 import 'babel-polyfill';
-
 import express from 'express';
 import bodyParser from 'body-parser';
 import session from 'express-session';
-import multer from 'multer';
+import mysql from 'mysql2';
+import uuidv4 from 'uuid/v4';
 import path from 'path';
 
+import {checker, handler, paramsRange} from './params-checker.js';
+
 const app = express();
-const upload = multer();
+const db = mysql.createConnection({
+    host : 'localhost',
+    user : 'root',
+    password : 'sksks',
+    database : 'codefly'
+});
+const addChecker = ['code', 'input', 'time', 'memory', 'lang'];
 
 app.set('trust proxy', 1);
 
@@ -29,9 +37,25 @@ app.use(session({
     }
 }));
 
-app.post('/upload', upload.array(), (req, res, next) => {
-    console.log(req.body);
-    res.json(req.body);
+app.post('/api/add.php', (req, res) => {
+    if (!checker(req, addChecker) || !paramsRange(req)) return res.end(JSON.stringify({err : 'params error'}));
+    let uuid = uuidv4();
+    db.execute("insert into `record` values(?,?,?,'',?,?,?,0,0,0)", 
+        [uuid, req.body.code, req.body.input, req.body.time, req.body.memory, req.body.lang],
+        (err, rows) => {
+            if (!handler(err, res)) return;
+            res.end(JSON.stringify({err : null, uuid : uuid}));
+        });
+});
+
+app.get('/api/get.php/:uuid', (req, res) => {
+    db.execute("select `uuid`,`output`,`judged` from `record` where `uuid`=?",
+        [req.params.uuid],
+        (err, rows, cols) => {
+            if (!handler(err, res)) return;
+            if (rows.length < 1) return res.end(JSON.stringify({err : 'no record'}));
+            res.end(JSON.stringify({err : null, judged : (rows[0].judged == 1), output : rows[0].output}));
+        });
 });
 
 app.listen(process.env.PORT || 3000);

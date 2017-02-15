@@ -1,6 +1,6 @@
 /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2017-02-14 14:23:13
+        Last modified: 2017-02-15 20:18:23
         Filename: src/client/jsx/IO.js
         Description: Created by SpringHack using vim automatically.
 **/
@@ -39,7 +39,7 @@ export default @observer class extends React.Component {
                     </section>
                     <Row className='FooterButtons'>
                         <Col md={4}><Button onClick={() => this.share()} disabled={!Model.state.share} color='danger'>SHARE</Button></Col>
-                        <Col md={4}><Button onClick={() => this.submit()} color='primary'>RUN</Button></Col>
+                        <Col md={4}><Button onClick={() => this.submit()} disabled={Model.state.loading} color='primary'>RUN</Button></Col>
                         <Col md={4}><Button onClick={() => this.close()} disabled={Model.state.loading} color='accent'>CLOSE</Button></Col>
                     </Row>
                 </Panel>
@@ -47,10 +47,35 @@ export default @observer class extends React.Component {
         );
     }
     submit() {
-        //TODO
-        //Fake operation
         Model.setState({loading : true, share : false});
-        setTimeout(() => Model.setState({loading : false, share : true}), 10000);
+        Config.POST('/api/add.php', {
+            code : Model.state.code,
+            time : Model.state.time,
+            lang : Model.state.lang,
+            input : Model.state.input,
+            memory : Model.state.memory
+        })
+        .then(res => res.json())
+        .then(json => {
+            if (json.err)
+                Model.setState({loading : false, share : false});
+            else
+                this.check(json.uuid);
+        });
+    }
+    check(uuid) {
+        Config.GET(`/api/get.php/${uuid}`)
+        .then(res => res.json())
+        .then(json => {
+            if (json.err)
+                Model.setState({loading : false, share : false});
+            else {
+                if (json.judged)
+                    Model.setState({loading : false, share : true, recordID : uuid, output : json.output});
+                else
+                    setTimeout(() => this.check(uuid), 3000);
+            }
+        });
     }
     close() {
         Model.setState({showIO : false});
