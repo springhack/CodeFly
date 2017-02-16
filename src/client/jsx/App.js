@@ -1,6 +1,6 @@
 /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2017-02-16 14:52:48
+        Last modified: 2017-02-16 15:41:05
         Filename: src/client/jsx/App.js
         Description: Created by SpringHack using vim automatically.
 **/
@@ -47,6 +47,6 @@ export default @observer class extends React.Component {
         );
     }
     componentDidMount() {
-        console.log('SpringHack');
+        console.log('Contact me via springhack#live.cn');
     }
 }
