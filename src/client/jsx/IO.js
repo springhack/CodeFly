@@ -1,7 +1,7 @@
 /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2017-02-15 20:18:23
-        Filename: src/client/jsx/IO.js
+        Last modified: 2017-02-16 14:51:00
+        Filename: IO.js
         Description: Created by SpringHack using vim automatically.
 **/
 import React from 'react';
@@ -34,8 +34,8 @@ export default @observer class extends React.Component {
                         <div>Stdin:</div>
                         <CodeMirror options={CodeMirrorOptions} value={Model.state.input} onChange={input => Model.setState({input : input, share : false})} preserveScrollPosition />
                         <Divider />
-                        <div>Stdout:</div>
-                        {Model.state.loading && <Loading /> || <code><pre>{Model.state.output}</pre></code>}
+                        <div>Result:</div>
+                        {Model.state.loading && <Loading /> || <pre className='out'><code>{`${Model.state.output}Time Used: ${Model.state.time_use}MS    Memory Used: ${Model.state.memory_use}MB`}</code></pre>}
                     </section>
                     <Row className='FooterButtons'>
                         <Col md={4}><Button onClick={() => this.share()} disabled={!Model.state.share} color='danger'>SHARE</Button></Col>
@@ -64,14 +64,14 @@ export default @observer class extends React.Component {
         });
     }
     check(uuid) {
-        Config.GET(`/api/get.php/${uuid}`)
+        Config.GET(`/api/get.php?uuid=${uuid}`)
         .then(res => res.json())
         .then(json => {
             if (json.err)
                 Model.setState({loading : false, share : false});
             else {
                 if (json.judged)
-                    Model.setState({loading : false, share : true, recordID : uuid, output : json.output});
+                    Model.setState({loading : false, share : true, recordID : uuid, output : json.output, time_use : json.time_use, memory_use : json.memory_use});
                 else
                     setTimeout(() => this.check(uuid), 3000);
             }
@@ -82,7 +82,7 @@ export default @observer class extends React.Component {
         setTimeout(() => Model.setState({showIOTimeout : false}), 150);
     }
     share() {
-        //TODO
+        location.href = `#/code/${Model.state.recordID}`;
     }
 };
 

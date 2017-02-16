@@ -1,6 +1,6 @@
 /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2017-02-14 13:57:28
+        Last modified: 2017-02-16 13:22:00
         Filename: Model.js
         Description: Created by SpringHack using vim automatically.
 **/
@@ -29,7 +29,9 @@ class Model {
         showIOTimeout : false,
         time : 2000,
         lang : 'G++',
-        memory : 128
+        memory : 128,
+        time_use : 0,
+        memory_use : 0,
     };
 
     constructor() {

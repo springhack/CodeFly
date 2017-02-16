@@ -30,16 +30,14 @@ build_cmd = {
     'Java': 'javac -J-Xms32m -J-Xmx256m Main.java -encoding UTF8'
 }
 
-re_result_code = {
-    0: 'Waiting',
-    1: 'Accepted',
-    2: 'Time Limit Exceeded',
-    3: 'Memory Limit Exceeded',
-    4: 'Wrong Answer',
-    5: 'Runtime Error',
-    6: 'Output Limit Exceeded',
-    7: 'Compile Error',
-    8: 'Presentation Error',
-    11: 'System Error',
-    12: 'Judging',
-}
+result_string = {
+    0 : 'Accepted',
+    1 : 'Presentation Error',
+    2 : 'Time Limit Exceeded',
+    3 : 'Memory Limit Exceeded',
+    4 : 'Wrong Answer',
+    5 : 'Runtime Error',
+    6 : 'Output Limit Exceeded',
+    7 : 'Compile Error',
+    8 : 'System Error'
+};

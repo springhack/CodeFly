@@ -1,7 +1,7 @@
 /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2017-02-14 12:53:49
-        Filename: App.js
+        Last modified: 2017-02-16 14:52:48
+        Filename: src/client/jsx/App.js
         Description: Created by SpringHack using vim automatically.
 **/
 import React from 'react';
@@ -13,6 +13,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import IO from './IO.js';
 import Model from '../model/Model.js';
+import Header from './Header.js';
 import Animation from './Animation.js';
 import CodeEditor from './CodeEditor.js';
 
@@ -24,9 +25,7 @@ export default @observer class extends React.Component {
     render() {
         return (
             <Container>
-                <Panel>
-                    <h3>CodeFly - A code sharing and running platform</h3>
-                </Panel>
+                <Header />
                 <Panel className='Main'>
                     <Animation />
                     <CodeEditor />

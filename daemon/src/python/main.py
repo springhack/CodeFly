@@ -82,7 +82,12 @@ def Worker(id):
         p = subprocess.Popen(os.path.join(BaseDir, 'daemon/bin/compiler %d %s') % (JAVA, config.build_cmd[task[6]]),
             shell=True, cwd=T_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True)
         C_out, C_err = p.communicate()
-        C_info = 'COMPILER:\n%s\n%s\n\n' % (C_out.strip(), C_err.strip())
+        C_info = 'COMPILER:\n'
+        if not C_out.strip() == '':
+            C_info += C_out.strip() + '\n'
+        if not C_err.strip() == '':
+            C_info += C_err.strip() + '\n'
+        C_info += '\n'
         if p.returncode == 0:
             R_conf = {
                 'args' : T_bin,
@@ -104,9 +109,15 @@ def Worker(id):
                     f.close()
             except:
                 pass
-            R_info = 'OUTPUT:\n%s\n%s\n\n' % (R_out.strip(), R_err.strip())
-            run_sql("update record set `judged`=1,`time_use`=%d,`memory_use`=%d,`output`='%s' where `uuid`='%s'" %
-                (int(R_ret['timeused']), int(R_ret['memoryused']), MySQLdb.escape_string(C_info + R_info), task[0]))
+            R_info = 'OUTPUT:\n'
+            if not R_out.strip() == '':
+                R_info += R_out.strip() + '\n'
+            if not R_err.strip() == '':
+                R_info += R_err.strip() + '\n'
+            R_info += '\n'
+            J_info = 'JUDGER:\n%s\n\n' % config.result_string[int(R_ret['result'])]
+            run_sql("update record set `judged`=1,`time_use`=%d,`memory_use`=%.3f,`output`='%s' where `uuid`='%s'" %
+                (int(R_ret['timeused']), float(R_ret['memoryused'])/1024, MySQLdb.escape_string(R_info + J_info + C_info), task[0]))
         else:
             print 'C Error'
             run_sql("update record set `judged`=1,`output`='%s' where `uuid`='%s'" % (MySQLdb.escape_string(C_info), task[0]))

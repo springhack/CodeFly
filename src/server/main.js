@@ -48,13 +48,25 @@ app.post('/api/add.php', (req, res) => {
         });
 });
 
-app.get('/api/get.php/:uuid', (req, res) => {
-    db.execute("select `uuid`,`output`,`judged` from `record` where `uuid`=?",
-        [req.params.uuid],
+app.get('/api/get.php', (req, res) => {
+    if (!req.query.uuid) return res.end(JSON.stringify({err : 'no record'}));
+    db.execute("select `uuid`,`output`,`judged`,`time_use`,`memory_use` from `record` where `uuid`=?",
+        [req.query.uuid],
         (err, rows, cols) => {
             if (!handler(err, res)) return;
             if (rows.length < 1) return res.end(JSON.stringify({err : 'no record'}));
-            res.end(JSON.stringify({err : null, judged : (rows[0].judged == 1), output : rows[0].output}));
+            res.end(JSON.stringify({err : null, judged : (rows[0].judged == 1), output : rows[0].output, time_use : rows[0].time_use, memory_use : rows[0].memory_use.toFixed(3)}));
+        });
+});
+
+app.get('/api/all.php', (req, res) => {
+    if (!req.query.uuid) return res.end(JSON.stringify({err : 'no record'}));
+    db.execute("select `code`,`input`,`output`,`time`,`lang`,`memory`,`time_use`,`memory_use` from `record` where `uuid`=?",
+        [req.query.uuid],
+        (err, rows, cols) => {
+            if (!handler(err, res)) return;
+            if (rows.length < 1) return res.end(JSON.stringify({err : 'no record'}));
+            res.end(JSON.stringify(Object.assign({err : null}, rows[0])));
         });
 });
 
