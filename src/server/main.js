@@ -1,6 +1,6 @@
 /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2017-02-14 14:24:45
+        Last modified: 2017-02-19 13:29:18
         Filename: src/server/main.js
         Description: Created by SpringHack using vim automatically.
 **/
@@ -8,6 +8,7 @@ import 'babel-polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
 import session from 'express-session';
+import compression from 'compression';
 import mysql from 'mysql2';
 import uuidv4 from 'uuid/v4';
 import path from 'path';
@@ -25,6 +26,7 @@ const addChecker = ['code', 'input', 'time', 'memory', 'lang'];
 
 app.set('trust proxy', 1);
 
+app.use(compression());
 app.use(express.static(path.resolve(__dirname, '../dist')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
