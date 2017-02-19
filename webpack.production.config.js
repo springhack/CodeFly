@@ -1,6 +1,6 @@
 /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2017-02-14 14:26:34
+        Last modified: 2017-02-19 12:55:45
         Filename: webpack.production.config.js
         Description: Created by SpringHack using vim automatically.
 **/
@@ -12,7 +12,7 @@ var path = require('path');
 
 module.exports = {
   entry: {
-    vendor: ['react', 'react-dom', 'muicss', 'react-router', 'react-codemirror'],
+    vendor: ['react', 'react-dom', 'react-codemirror'],
     main: path.resolve(__dirname, 'src/client/main.js')
   },
   output: {

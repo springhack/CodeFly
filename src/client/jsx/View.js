@@ -1,7 +1,7 @@
 /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2017-02-16 14:55:19
-        Filename: View.js
+        Last modified: 2017-02-19 12:30:21
+        Filename: src/client/jsx/View.js
         Description: Created by SpringHack using vim automatically.
 **/
 import React from 'react';
@@ -9,8 +9,8 @@ import {observer} from 'mobx-react';
 import {
     Container, Divider, Panel, Button, Row, Col
 } from 'muicss/react';
-import Highlight from 'react-highlight';
 
+import Highlight from './Highlight.js';
 import Model from '../model/Model.js';
 import Header from './Header.js';
 
@@ -18,7 +18,8 @@ export default @observer class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            memory_use : 0
+            memory_use : 0,
+            render_lang : ''
         };
     }
     render() {
@@ -28,7 +29,7 @@ export default @observer class extends React.Component {
                 <Panel className='Code'>
                     <h6>Code:</h6>
                     <Divider />
-                    <Highlight className={this.state.lang=='Java'?'java':'cpp'}>{this.state.code}</Highlight>
+                    <Highlight className={this.state.render_lang}>{this.state.code}</Highlight>
                     <Row>
                         <Col md={2}>LANG: {this.state.lang}</Col>
                         <Col md={2}>TIME USE: {this.state.time_use}MS</Col>
@@ -69,7 +70,8 @@ export default @observer class extends React.Component {
                     time : json.time,
                     memory : json.memory,
                     time_use : json.time_use,
-                    memory_use : json.memory_use
+                    memory_use : json.memory_use,
+                    render_lang : (json.lang == 'Java')?'java':'cpp'
                 });
         })
     }
