@@ -1,7 +1,7 @@
 /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2017-02-19 12:30:25
-        Filename: Highlight.js
+        Last modified: 2017-02-19 21:00:33
+        Filename: src/client/jsx/Highlight.js
         Description: Created by SpringHack using vim automatically.
 **/
 import React from 'react';
@@ -16,8 +16,7 @@ export default class extends React.Component {
         return (
             <div>
                 <pre>
-                    <code dangerouslySetInnerHTML={{__html : this.props.children}} className={this.props.className}>
-                    </code>
+                    <code className={this.props.className}>{this.props.children}</code>
                 </pre>
             </div>
         );
