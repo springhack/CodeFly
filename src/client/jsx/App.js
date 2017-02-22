@@ -1,7 +1,7 @@
 /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2017-02-16 15:41:05
-        Filename: src/client/jsx/App.js
+        Last modified: 2017-02-22 15:02:09
+        Filename: App.js
         Description: Created by SpringHack using vim automatically.
 **/
 import React from 'react';

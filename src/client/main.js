@@ -1,6 +1,6 @@
 /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2017-02-16 15:42:11
+        Last modified: 2017-02-22 14:44:00
         Filename: src/client/main.js
         Description: Created by SpringHack using vim automatically.
 **/
@@ -12,6 +12,7 @@ import ReactDOM from 'react-dom';
 import {Router, Route, IndexRoute, hashHistory} from 'react-router';
 
 import Config from './config/Config.js';
+import Model from './model/Model.js';
 import View from './jsx/View.js';
 import App from './jsx/App.js';
 
@@ -59,3 +60,19 @@ ReactDOM.render(
         </Route>
     </Router>
 , document.getElementById('app'));
+
+document.addEventListener('dragover', ev => {
+    ev.preventDefault();
+}, false);
+
+document.addEventListener('dragend', ev => {
+    ev.preventDefault();
+}, false);
+
+document.addEventListener('drop', ev => {
+    ev.preventDefault();
+    let file = ev.dataTransfer.files[0];
+    let fin = new FileReader();
+    fin.onload = () => Model.setState({code : fin.result});
+    fin.readAsText(file);
+}, false);

@@ -16,10 +16,14 @@ import Model from '../model/Model.js';
 import 'codemirror/mode/clike/clike.js';
 
 export default observer((props) => {
-    let {value, onChange} = props;
     return (
         <section className='MainContainer'>
-            <CodeMirror className='CodeMirror' value={Model.state.code} onChange={code => Model.setState({code : code, share : false})} options={Config.CodeMirrorConfig} preserveScrollPosition />
+            <CodeMirror
+                className='CodeMirror'
+                value={Model.state.code}
+                onChange={code => Model.setState({code : code, share : false})}
+                options={Config.CodeMirrorConfig}
+                preserveScrollPosition />
             <div className='Toolbar'>
                 <Dropdown label={`Lang: ${Model.state.lang}`}>
                     {['G++', 'GCC', 'Java'].map((e, i) => <DropdownItem key={i} onClick={() => Model.setState({lang : e})}>{e}</DropdownItem>)}
