@@ -1,7 +1,7 @@
 /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2017-02-19 12:30:21
-        Filename: src/client/jsx/View.js
+        Last modified: 2017-02-23 22:57:24
+        Filename: View.js
         Description: Created by SpringHack using vim automatically.
 **/
 import React from 'react';
@@ -12,6 +12,7 @@ import {
 
 import Highlight from './Highlight.js';
 import Model from '../model/Model.js';
+import Config from '../config/Config.js';
 import Header from './Header.js';
 
 export default @observer class extends React.Component {
@@ -58,7 +59,7 @@ export default @observer class extends React.Component {
         location.href = '#';
     }
     componentDidMount() {
-        fetch(`/api/all.php?uuid=${this.props.params.uuid}`)
+        Config.GET(`/api/all.php?uuid=${this.props.params.uuid}`)
         .then(res => res.json())
         .then(json => {
             if (!json.err)

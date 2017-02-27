@@ -33,6 +33,7 @@ CREATE TABLE `record` (
   `time_use` float DEFAULT NULL,
   `memory_use` float DEFAULT NULL,
   `judged` tinyint(1) DEFAULT NULL,
+  `timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`uuid`),
   KEY `judged` (`judged`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

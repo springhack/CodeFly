@@ -23,6 +23,7 @@ const db = mysql.createConnection({
     database : 'codefly'
 });
 const addChecker = ['code', 'input', 'time', 'memory', 'lang'];
+const TIMELAST = 7*24*60*60
 
 app.set('trust proxy', 1);
 
@@ -42,8 +43,8 @@ app.use(session({
 app.post('/api/add.php', (req, res) => {
     if (!checker(req, addChecker) || !paramsRange(req)) return res.end(JSON.stringify({err : 'params error'}));
     let uuid = uuidv4();
-    db.execute("insert into `record` values(?,?,?,'',?,?,?,0,0,0)", 
-        [uuid, req.body.code, req.body.input, req.body.time, req.body.memory, req.body.lang],
+    db.execute("insert into `record` values (?,?,?,'',?,?,?,0,0,0,?)", 
+        [uuid, req.body.code, req.body.input, req.body.time, req.body.memory, req.body.lang, parseInt((new Date()).getTime()/1000)],
         (err, rows) => {
             if (!handler(err, res)) return;
             res.end(JSON.stringify({err : null, uuid : uuid}));
@@ -69,6 +70,16 @@ app.get('/api/all.php', (req, res) => {
             if (!handler(err, res)) return;
             if (rows.length < 1) return res.end(JSON.stringify({err : 'no record'}));
             res.end(JSON.stringify(Object.assign({err : null}, rows[0])));
+        });
+});
+
+app.get('/api/rec.php', (req, res) => {
+    db.execute("select `lang`,`timestamp` from `record` where `timestamp`>? order by timestamp desc",
+        [parseInt((new Date())/1000) - TIMELAST],
+        (err, rows, cols) => {
+            if (!handler(err, res)) return;
+            if (rows.length < 1) return res.end(JSON.stringify({err : 'no record'}));
+            res.end(JSON.stringify({err : null, rec : rows}));
         });
 });
 

@@ -1,6 +1,6 @@
 /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2017-02-22 14:44:00
+        Last modified: 2017-02-24 00:19:16
         Filename: src/client/main.js
         Description: Created by SpringHack using vim automatically.
 **/
