@@ -1,6 +1,6 @@
 /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2017-02-27 13:28:25
+        Last modified: 2017-03-05 17:00:34
         Filename: src/client/jsx/Data.js
         Description: Created by SpringHack using vim automatically.
 **/
@@ -117,7 +117,7 @@ export default @observer class extends React.Component {
     }
     mouse(ev) {
         let x = (ev.clientX - this.domPosition.x)/this.state.scale;
-        let y = (ev.clientY - this.domPosition.y)/this.state.scale;
+        let y = (document.body.scrollTop + ev.clientY - this.domPosition.y)/this.state.scale;
         let p = -1;
         const FF = 20;
         for (let i=0;i<7;++i)
