@@ -12,6 +12,7 @@ import compression from 'compression';
 import mysql from 'mysql2';
 import uuidv4 from 'uuid/v4';
 import path from 'path';
+import cors from 'cors';
 
 import {checker, handler, paramsRange} from './params-checker.js';
 
@@ -26,6 +27,11 @@ const addChecker = ['code', 'input', 'time', 'memory', 'lang'];
 const TIMELAST = 7*24*60*60
 
 app.set('trust proxy', 1);
+app.use(cors({
+    origin(origin, callback) {
+        callback(null, true);
+    }
+}));
 
 app.use(compression());
 app.use(express.static(path.resolve(__dirname, '../dist')));

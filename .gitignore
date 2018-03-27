@@ -4,4 +4,5 @@ daemon/src/c/runner
 daemon/socket
 daemon/runtime
 npm-debug.log
+.DS_Store
 *.pyc
